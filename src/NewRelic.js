@@ -107,7 +107,7 @@ class NewRelic {
    * @param {string} eventName  Use this parameter to name the event.
    * @param {object} args A json object that includes a list of optional attributes related to the event
    */
-  recordCustomEvent(eventType, eventName, args) {
+  recordCustomEventWithName(eventType, eventName, args) {
     const eventTypeStr = String(eventType);
     const eventNameStr = String(eventName);
     const argsIsObject = typeof args === 'object';
@@ -119,7 +119,26 @@ class NewRelic {
         }, {})
       : {};
 
-    RNNewRelic.recordCustomEvent(eventTypeStr, eventNameStr, argsStr);
+    RNNewRelic.recordCustomEventWithName(eventTypeStr, eventNameStr, argsStr);
+  }
+
+  /**
+   * Send custom events to NewRelic
+   * @param {string} eventType The type of event. Do not use eventType to name your custom events.
+   * @param {object} args A json object that includes a list of optional attributes related to the event
+   */
+  recordCustomEvent(eventType, args) {
+    const eventTypeStr = String(eventType);
+    const argsIsObject = typeof args === 'object';
+    const argsStr = argsIsObject
+      ? Object.keys(args).reduce((argsObject, key) => {
+          const value = args[key];
+          argsObject[String(key)] = String(value);
+          return argsObject;
+        }, {})
+      : {};
+
+    RNNewRelic.recordCustomEvent(eventTypeStr, argsStr);
   }
 
   send(name, args) {

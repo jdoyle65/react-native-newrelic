@@ -23,11 +23,14 @@ RCT_EXPORT_METHOD(setAttribute: (NSString*)name: (NSString*)value){
 
 RCT_EXPORT_METHOD(removeAttribute: (NSString*)attributeName){
     [NewRelicAgent removeAttribute:attributeName];
-    
 }
 
-RCT_EXPORT_METHOD(recordCustomEvent: (NSString*)eventType: (NSString*)eventName :(NSDictionary*)args){
+RCT_EXPORT_METHOD(recordCustomEventWithName: (NSString*)eventType: (NSString*)eventName :(NSDictionary*)args){
     [NewRelicAgent recordCustomEvent:eventType name:eventName attributes:args];
+}
+
+RCT_EXPORT_METHOD(recordCustomEvent: (NSString*)eventType: (NSDictionary*)args){
+    [NewRelicAgent recordCustomEvent:eventType attributes:args];
 }
 
 // Logs a message to the native console
