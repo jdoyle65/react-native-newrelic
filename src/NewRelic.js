@@ -1,5 +1,5 @@
 /* globals ErrorUtils, __DEV__ */
-import {NativeModules} from 'react-native';
+import { NativeModules } from 'react-native';
 import * as _ from 'lodash';
 
 const RNNewRelic = NativeModules.RNNewRelic;
@@ -42,8 +42,8 @@ class NewRelic {
 
   _reportUncaughtExceptions(errorUtils = global.ErrorUtils) {
     const defaultHandler = errorUtils._globalHandler;
-    errorUtils._globalHandler = (error) => {
-      this.send('JS:UncaughtException', {error, stack: error && error.stack});
+    errorUtils._globalHandler = error => {
+      this.send('JS:UncaughtException', { error, stack: error && error.stack });
       defaultHandler(error);
     };
   }
@@ -54,7 +54,7 @@ class NewRelic {
       rejectionTracking.enable({
         allRejections: true,
         onUnhandled: (id, error) => {
-          this.send('JS:UnhandledRejectedPromise', {error});
+          this.send('JS:UnhandledRejectedPromise', { error });
           this.nativeLog('[UnhandledRejectedPromise] ' + error);
         },
         onHandled: () => {
@@ -74,9 +74,17 @@ class NewRelic {
     });
   }
 
+  /**
+   * remove attribute
+   * @param {string} attributeName
+   */
+  removeAttribute(attributeName) {
+    RNNewRelic.removeAttribute(String(attributeName));
+  }
+
   sendConsole(type, args) {
     const argsStr = _.map(args, String).join(', ');
-    this.send('JSConsole', {consoleType: type, args: argsStr});
+    this.send('JSConsole', { consoleType: type, args: argsStr });
     if (type === 'error') {
       this.nativeLog('[JSConsole:Error] ' + argsStr);
     }
@@ -91,6 +99,27 @@ class NewRelic {
   */
   nativeLog(log) {
     RNNewRelic.nativeLog(log);
+  }
+
+  /**
+   * Send custom events to NewRelic
+   * @param {string} eventType The type of event. Do not use eventType to name your custom events.
+   * @param {string} eventName  Use this parameter to name the event.
+   * @param {object} args A json object that includes a list of optional attributes related to the event
+   */
+  recordCustomEvent(eventType, eventName, args) {
+    const eventTypeStr = String(eventType);
+    const eventNameStr = String(eventName);
+    const argsIsObject = typeof args === 'object';
+    const argsStr = argsIsObject
+      ? Object.keys(args).reduce((argsObject, key) => {
+          const value = args[key];
+          argsObject[String(key)] = String(value);
+          return argsObject;
+        }, {})
+      : {};
+
+    RNNewRelic.recordCustomEvent(eventTypeStr, eventNameStr, argsStr);
   }
 
   send(name, args) {
