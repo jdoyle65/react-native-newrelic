@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
-#import <NewRelicAgent/NewRelicAgent.framework/Headers/NewRelic.h>
+#import <NewRelic.h>
 
 @interface RNNewRelic : NSObject <RCTBridgeModule>
 
