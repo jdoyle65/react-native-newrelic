@@ -35,8 +35,8 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.newrelic.agent.android:android-agent:5.11.+'
-    compile 'com.facebook.react:react-native:+' //from node_modules
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.+'
+    implementation 'com.newrelic.agent.android:android-agent:5.23.0'
+    implementation 'com.facebook.react:react-native:+' //from node_modules
 }
