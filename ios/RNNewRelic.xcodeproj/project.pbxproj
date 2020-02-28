@@ -223,6 +223,7 @@
 					"$(SRCROOT)/../../../ios/Pods/NewRelicAgent/NewRelicAgent/NewRelicAgent.framework/Headers",
 					"$(SRCROOT)/../../../ios/Pods/Headers/Private/React",
 					"$(SRCROOT)/../../react-native/React/**",
+					"$(SRCROOT)/../../../ios/Pods/Headers/Public/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
@@ -243,6 +244,7 @@
 					"$(SRCROOT)/../../../ios/Pods/NewRelicAgent/NewRelicAgent/NewRelicAgent.framework/Headers",
 					"$(SRCROOT)/../../../ios/Pods/Headers/Private/React",
 					"$(SRCROOT)/../../react-native/React/**",
+					"$(SRCROOT)/../../../ios/Pods/Headers/Public/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
