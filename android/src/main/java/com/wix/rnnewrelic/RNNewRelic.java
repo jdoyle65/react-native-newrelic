@@ -19,6 +19,11 @@ public class RNNewRelic extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void setUserId(String id) {
+        NewRelic.setUserId(id);
+    }
+
+    @ReactMethod
     public void send(String name, ReadableMap eventAttributes) {
         NewRelic.recordEvent(name ,RNUtils.toHashMap((ReadableNativeMap) eventAttributes));
     }
@@ -26,6 +31,21 @@ public class RNNewRelic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setAttribute(String name, String value) {
         NewRelic.setAttribute(name , value);
+    }
+
+    @ReactMethod
+    public void removeAttribute(String attributeName) {
+        NewRelic.removeAttribute(attributeName);
+    }
+
+    @ReactMethod
+    public void recordCustomEventWithName(String eventType, String eventName, map<string, object> args) {
+        NewRelic.recordCustomEvent(eventType, eventName, args);
+    }
+
+    @ReactMethod
+    public void recordCustomEvent(String eventType, map<string, object> args) {
+        NewRelic.recordCustomEvent(eventType, args);
     }
 
     @ReactMethod
