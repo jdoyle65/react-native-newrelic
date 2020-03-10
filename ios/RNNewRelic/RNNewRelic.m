@@ -12,7 +12,7 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(setUserId: (NSString*)id: (NSString*)value){
+RCT_EXPORT_METHOD(setUserId: (NSString*)id){
     [NewRelicAgent setUserId:id];
 }
 

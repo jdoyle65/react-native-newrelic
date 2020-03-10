@@ -140,15 +140,17 @@ class NewRelic {
 
     RNNewRelic.recordCustomEvent(eventTypeStr, argsStr);
   }
-
-  send(name, args) {
-    const nameStr = String(name);
-    const argsStr = {};
-    _.forEach(args, (value, key) => {
-      argsStr[String(key)] = String(value);
-    });
-    RNNewRelic.send(nameStr, argsStr);
+  
+  /**
+   * Set a custom user identifier value to associate user sessions with analytics events and attributes. 
+   * @param {string} id 
+   */
+  setUserId(id){
+    if(id && typeof(id) === 'string' && id.trim().length>0){
+      RNNewRelic.setUserId(id);
+    }
   }
+
 }
 
 export default new NewRelic();
