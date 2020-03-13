@@ -8,7 +8,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableNativeMap;
 import com.newrelic.agent.android.NewRelic;
-import java.util.Map;
+
 
 /**
  * Created by rotemm on 29/06/2016.
@@ -40,13 +40,13 @@ public class RNNewRelic extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void recordCustomEventWithName(String eventType, String eventName, Map<String, Object> args) {
-        NewRelic.recordCustomEvent(eventType, eventName, args);
+    public void recordCustomEventWithName(String eventType, String eventName, ReadableMap args) {
+        NewRelic.recordCustomEvent(eventType, eventName, RNUtils.toHashMap((ReadableNativeMap)args));
     }
 
     @ReactMethod
-    public void recordCustomEvent(String eventType, Map<String, Object> args) {
-        NewRelic.recordCustomEvent(eventType, args);
+    public void recordCustomEvent(String eventType, ReadableMap args) {
+        NewRelic.recordCustomEvent(eventType, RNUtils.toHashMap((ReadableNativeMap)args));
     }
 
     @ReactMethod
